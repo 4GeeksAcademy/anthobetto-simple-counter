@@ -15,12 +15,12 @@ export const SimpleCounter = () => {
 
     useEffect(() => {
         if (runStart) {
-            const intervalId = setInterval(() => {
-                setCounter(counter => counter + 1);
+            const intervalId = setInterval(() => { // const intervalId se declara dentro del if para que se ejecute cuando cambia de estado
+                setCounter(prevCounter => prevCounter + 1);
             }, 1000);
-            return () => clearInterval(intervalId);
+            return () => clearInterval(intervalId); // solo se ejecuta si runStart es true. Si se pausa (runStart se vuelve false), se limpia el intervalo.
         }
-    }, [runStart]);
+    }, [runStart]); // Esto asegura que el intervalo se configure cuando runStart es true y se limpie cuando runStart es false.
 
     return (
         <div className="WebCounter">
