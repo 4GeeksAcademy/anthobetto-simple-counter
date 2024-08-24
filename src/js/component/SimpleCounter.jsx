@@ -5,12 +5,12 @@ export const SimpleCounter = () => {
     const [runStart, setRunStart] = useState(false);
 
     const handleStart = () => {
-        setRunStart(!runStart);
+        setRunStart(!runStart); // modifica el estado el estado de false a true y al ejecutarse en useEffect hace que pueda ejecutarse
     }
 
     const handleReset = () =>{
-        setCounter(0);
-        setRunStart(false);
+        setCounter(0); // vuelve al estado inicial que es 0
+        setRunStart(false); // devuelve false y muestra la configuración inicial
     }
 
     useEffect(() => {
