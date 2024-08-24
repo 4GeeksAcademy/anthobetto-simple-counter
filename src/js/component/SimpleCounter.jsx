@@ -2,13 +2,25 @@ import React, { useState, useEffect } from "react";
 
 export const SimpleCounter = () => {
     const [counter, setCounter] = useState(0);
+    const [runStart, setRunStart] = useState(false);
+
+    const handleStart = () => {
+        setRunStart(!runStart);
+    }
+
+    const handleReset = () =>{
+        setCounter(0);
+        setRunStart(false);
+    }
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCounter(counter => counter + 1);
-        }, 1000);
-        return () => clearInterval(intervalId);
-    }, []);
+        if (runStart) {
+            const intervalId = setInterval(() => {
+                setCounter(counter => counter + 1);
+            }, 1000);
+            return () => clearInterval(intervalId);
+        }
+    }, [runStart]);
 
     return (
         <div className="WebCounter">
@@ -24,10 +36,10 @@ export const SimpleCounter = () => {
             <div>{Math.floor(counter / 10) % 10}</div>
             <div>{Math.floor(counter / 1) % 10}</div>
             <div className="btn-group-vertical" role="group" aria-label="Vertical button group">
-                    <button type="button" className="btn btn-outline-success">
-                        Start
+                    <button onClick={handleStart} type="button" className="btn btn-outline-success">
+                    {runStart ? "Pause" : counter == 0 ? "Start" : "Continue"}
                     </button>
-                    <button onClick={() => setCounter(0)}type="button" className="btn btn-outline-danger">
+                    <button onClick={handleReset}type="button" className="btn btn-outline-danger">
                         Reset
                     </button>
                 </div>
